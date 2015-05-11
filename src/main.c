@@ -22,7 +22,7 @@ int main(void)
     time(&sec);
     sys=localtime(&sec);
 
-    int d=tage(day,month,year,sys->tm_mday,sys->tm_mon,sys->tm_year);
+    int d=tage(day,month,year,sys->tm_mday,sys->tm_mon,sys->tm_year+1900);
 
     printf("\n\n%18s  |%10s  |%10s  |%10s\n","days from today","physical","emotional","psychical");
 
