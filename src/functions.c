@@ -61,7 +61,7 @@ int tage(int d1,int m1,int y1,int d2,int m2,int y2)
             days[1]=leapyear(y1)?29:28;
         }
     }
-    return s;
+    return s-1;
 }
 
 double calc(int days,int val)
