@@ -27,41 +27,29 @@ int pruefeDatum(int day,int month,int year)
 
 int tage(int d1,int m1,int y1,int d2,int m2,int y2)
 {
-    static int days[]={31,0,31,30,31,30,31,31,30,31,30,31};//static array
     if(pruefeDatum(d1,m1,y1)||pruefeDatum(d2,m2,y2))
     {
         return -1;
     }
-    if(y1>y2||(y1==y2&&(m1>m2||(m1==m2&&d1>d2))))//date2>date1
-    {
-        y1^=y2;
-        y2^=y1;
-        y1^=y2;
-        m1^=m2;
-        m2^=m1;
-        m1^=m2;
-        d1^=d2;
-        d2^=d1;
-        d1^=d2;
-    }
-    days[1]=leapyear(y1)?29:28;
-    int s;
-    for(s=0;!(y1>y2||(y1==y2&&(m1>m2||(m1==m2&&d1>d2))));s++)
-    {
-        d1++;
-        if(d1>days[m1-1])
-        {
-            d1=1;
-            m1++;
-        }
-        if(m1>12)
-        {
-            m1=1;
-            y1++;
-            days[1]=leapyear(y1)?29:28;
-        }
-    }
-    return s-1;
+	struct tm t1=
+	{
+		.tm_sec=0,
+		.tm_min=0,
+		.tm_hour=0,
+		.tm_mday=d1,
+		.tm_mon=m1,
+		.tm_year=y1,
+	};
+	struct tm t2=
+	{
+		.tm_sec=0,
+		.tm_min=0,
+		.tm_hour=0,
+		.tm_mday=d2,
+		.tm_mon=m2,
+		.tm_year=y2,
+	};
+    return (int)(difftime(mktime(&t2),mktime(&t1))/86400);
 }
 
 double calc(int days,int val)
