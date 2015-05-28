@@ -9,12 +9,10 @@ int main(void)
     static char buf[0x1000];
     int day,month,year;
     printf("Please enter a valid date(dd/mm/yyyy): ");
-    readDate(&day,&month,&year);
 
-    if(pruefeDatum(day,month,year))
+    while(readDate(&day,&month,&year)||pruefeDatum(day,month,year))
     {
-        printf("Invalid date!\n");
-        return 1;
+        printf("Invalid date!\nTry again: ");
     }
 
     time_t sec;
